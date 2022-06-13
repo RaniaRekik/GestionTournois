@@ -1,0 +1,201 @@
+
+<div>
+  <div id="main-container">
+
+  </div>
+    <button  *ngIf="showAdminBoard"  type="button"   style="background-color:#1077c3;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+       Ajouter un match
+      </button>
+
+      <button
+            (click) = "equipeFiltre(8)" 
+             class="btn btn-info" style="margin-left: 2%;"><i class="fas fa-eye"></i>filtre 8e de finale</button>
+      <br><br>
+
+      <div     class="container">
+        <table class="table">
+          <thead>
+            <tr>
+                         <th scope="col">Nom Match</th>
+              <th scope="col">Lieu du match</th>
+              <th scope="col">Heure du match</th>
+              <th scope="col">Etat du match</th>
+              <th scope="col">Arbitre responsable</th>
+              <th>Modifier</th>
+           <th>Supprimer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let match of matchs">
+                           <td>{{match?.nom}}</td>
+               <td>{{match?.lieu}}</td> 
+               <td>{{match?.dt}}</td> 
+               <td> état{{match?.etat}}</td> 
+               <td>{{match?.arbitre?.nom}}</td> 
+               <td  *ngIf="showAdminBoard"  > <a (click)="onOpenModal(match, 'edit')" style="background-color:#fec310   ;"  class="btn tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a></td>
+               <td  *ngIf="showAdminBoard" >  <a (click)="onOpenModal(match, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a></td>
+                        </tr>
+                      
+          </tbody>
+        </table>
+      </div>
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal"  style="z-index: 999999999;" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Ajouter un match</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+           
+            <form #addForm="ngForm" (ngSubmit)="onAddMatch(addForm)">
+            <div class="form-group">
+                <label for="name">Nom du match</label>
+                <input type="text" ngModel  name="nom" class="form-control" id="nom" placeholder="nom" required>
+             </div>
+             <br>
+             <div class="form-group">
+                <label for="lieu">Lieu du match</label>
+                <input type="text" ngModel  name="lieu" class="form-control" id="lieu" placeholder="lieu" required>
+             </div>
+             <br>
+             <div class="form-group">
+                <label for="dt">Date du match</label>
+                <input type="date" ngModel  name="dt" class="form-control" id="dt" placeholder="date" >
+             </div>
+            <br>
+            
+
+
+             <div class="form-group">
+               <label for="etat">Etat</label>
+                <select  [ngModel]="etat"  name="etat"    id="etat"  class="form-select" aria-label="Default select example" >
+                  <option   [ngValue]="8"    value="8">8e de finale</option>
+     <option [ngValue]="4"    value="4">Quart de finale</option>
+     <option [ngValue]="2"    value="2">Demi finale</option>
+     <option [ngValue]="1"    value="1">finale</option>
+                 
+             
+                  </select>
+             </div>
+           
+ 
+             <br>
+
+
+             
+          <!--  [(ngModel)]="selectedOption" -->  
+             <div class="form-group">
+                <label for="arbitre">Arbitre responsable</label>
+                 <select  [ngModel]="arbitres"  name="arbitre"    id="arbitre"  class="form-select" aria-label="Default select example" >
+                    
+                     <option [ngValue]="arbitre"   *ngFor="let arbitre of arbitres"   value="{{arbitre?.id}}">{{arbitre?.nom}}</option>
+                    
+                   </select>
+              </div>
+            
+            <div class="modal-footer">
+               <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button [disabled]="addForm.invalid" type="submit"  style="background-color:#1077c3;"  class="btn btn-primary" >Ajouter</button>
+            </div>
+            </form>
+         </div>
+       
+      </div>
+    </div>
+  </div>
+<!--fin modal-->
+
+
+
+<!-- Edit Modal -->
+<div class="modal fade" id="updateMatchModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h3 class="modal-title" id="updateEmployeeModalLabel">Modifier match {{editMatch?.nom}}</h3>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form #editForm="ngForm">
+              <div class="form-group">
+                 <label for="nom">Nom du match</label>
+                 <input type="text" ngModel="{{editMatch?.nom}}" name="nom" class="form-control" id="nom" aria-describedby="emailHelp" placeholder="nom">
+              </div>
+              <br>
+              <input type="hidden" ngModel="{{editMatch?.id}}" name="id" class="form-control" id="id" >
+            
+              <div class="form-group">
+                <label for="nom">Lieu du match</label>
+                <input type="text" ngModel="{{editMatch?.lieu}}" name="lieu" class="form-control" id="lieu" aria-describedby="emailHelp" placeholder="lieu">
+             </div>
+
+<br>
+<div class="form-group">
+  <label for="dt">Date du match</label>
+  <input type="date" ngModel="{{editMatch?.dt}}" name="dt" class="form-control" id="dt" aria-describedby="emailHelp" placeholder="Date du match">
+</div>
+
+<br>
+
+<div class="form-group">
+  <label for="etat">Etat</label>
+   <select  ngModel="{{editMatch?.etat}}"  name="etat"    id="etat"  class="form-select" aria-label="Default select example" >
+      <option   [ngValue]="8"    value="8">8e de finale</option>
+      <option [ngValue]="4"    value="4">Quart de finale</option>
+      <option [ngValue]="2"    value="2">Demi finale</option>
+      <option [ngValue]="1"    value="1">finale</option>
+
+     </select>
+</div> <br>
+              <div class="form-group">
+                <label for="pool">Arbitre responsable</label>
+                 <select    ngModel="{{editMatch?.arbitre?.name}}"  name="arbitre"    id="arbitre"  class="form-select" aria-label="Default select example">
+                      <option [ngValue]="arbitre"   *ngFor="let arbitre of arbitres"  value="{{arbitre?.id}}">{{arbitre?.nom}}</option>
+                    
+                   </select>
+              </div>
+
+                       
+              <div class="modal-footer">
+                 <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                 <button    style="background-color:#1077c3;"    (click)="onUpdateMatch(editForm.value)" data-dismiss="modal" class="btn" >Modifier</button>
+              </div>
+           </form>
+        </div>
+     </div>
+  </div>
+</div>
+<!--fin editModal-->
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteMatchModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+           <h3 class="modal-title" id="deleteModelLabel">Suppprimer match</h3>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <p>Êtes-vous sûr de vouloir supprimer le match {{deleteMatch?.nom}}?</p>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+              <button (click)="onDeleteMatch(deleteMatch?.id)"     style="background-color:#56042c;"    class="btn " data-dismiss="modal">Supprimer</button>
+           </div>
+        </div>
+     </div> 
+  </div>
+</div>
+<!--fin delete-->
+
+
+</div>

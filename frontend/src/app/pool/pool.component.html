@@ -1,0 +1,128 @@
+<div>
+  <div id="main-container">
+
+  </div>
+    <button  *ngIf="showAdminBoard" type="button"  style="background-color:#1077c3;"    class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Ajouter une pool
+      </button>
+<br><br>
+      <div     class="container">
+        <table class="table">
+          <thead>
+            <tr>
+             <th scope="col">Nom de la Pool </th>
+             <th scope="col" *ngIf="showAdminBoard" >Modifier </th>
+             <th scope="col" *ngIf="showAdminBoard" >Supprimer</th>     
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pool of pools">
+                           <td>{{pool?.name}}</td>
+                           <td *ngIf="showAdminBoard"> <a (click)="onOpenModal(pool, 'edit')" style="background-color:#fec310   ;"  class="btn tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a></td>
+                           <td *ngIf="showAdminBoard">  <a (click)="onOpenModal(pool, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a></td>
+                       </tr>
+                      
+          </tbody>
+        </table>
+      </div>
+
+
+
+
+
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal"  style="z-index: 999999999;" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Ajouter une pool</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+           
+            <form #addForm="ngForm" (ngSubmit)="onAddPool(addForm)">
+            <div class="form-group">
+                <label for="name">Nom de la pool</label>
+                <input type="text" ngModel  name="name" class="form-control" id="name" placeholder="nom" required>
+             </div>
+            
+         
+            
+            
+            <div class="modal-footer">
+               <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" style="background-color:#1077c3;"  >Save changes</button>
+            </div>
+            </form>
+         </div>
+       
+      </div>
+    </div>
+  </div>
+<!--fin modal-->
+
+
+<!-- Edit Modal -->
+<div class="modal fade" id="updatePoolModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h3 class="modal-title" id="updateEmployeeModalLabel">Modifier la pool {{editPool?.name}}</h3>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form #editForm="ngForm">
+              <div class="form-group">
+                 <label for="name">Nom de la pool</label>
+                 <input type="text" ngModel="{{editPool?.name}}" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
+              </div>
+              <br>
+              <input type="hidden" ngModel="{{editPool?.id_pool}}" name="id_pool" class="form-control" id="id_pool" >
+            
+              
+           
+              <div class="modal-footer">
+                 <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                 <button    style="background-color:#1077c3;"    (click)="onUpdatePool(editForm.value)" data-dismiss="modal" class="btn" >Modifier</button>
+              </div>
+           </form>
+        </div>
+     </div>
+  </div>
+</div>
+<!--fin editModal-->
+
+
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deletePoolModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+           <h3 class="modal-title" id="deleteModelLabel">Suppprimer pool</h3>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <p>Êtes-vous sûr de vouloir supprimer la pool {{deletePool?.name}}?</p>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+              <button (click)="onDeletePool(deletePool?.id_pool
+              )"     style="background-color:#56042c;"    class="btn " data-dismiss="modal">Supprimer</button>
+           </div>
+        </div>
+     </div> 
+  </div>
+</div>
+<!--fin delete-->
+
+</div>

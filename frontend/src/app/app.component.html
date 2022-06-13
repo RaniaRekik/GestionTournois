@@ -1,0 +1,115 @@
+<div  class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div *ngIf="loggedIn()">
+    <div  *ngIf="showAdminBoard" style="background-color:#fec310;color:#56042c;font-size:50px;" class=" border-right" id="sidebar-wrapper">
+
+      <div class="sidebar-heading " style="text-align: center" ><h1><b>World Cup Quatar 2022</b></h1></div>
+    
+      <div class="list-group list-group-flush">
+        <a href="pool"  style="background-color:#fec310;color:#56042c;font-size: 20px;"  class="list-group-item list-group-item-action "><b>Pool</b></a>
+        <a href="arbitre" style="background-color:#fec310;color:#56042c;font-size: 20px;"  class="list-group-item list-group-item-action "><b>Arbitre</b></a>
+        <a href="equipe"   style="background-color:#fec310;color:#56042c;font-size: 20px;" class="list-group-item list-group-item-action"><b>Equipe</b></a>
+        <a href="match"  style="background-color:#fec310;color:#56042c;font-size: 20px;" class="list-group-item list-group-item-action "><b>Match</b></a>
+        <a href="but"  style="background-color:#fec310;color:#56042c;font-size: 20px;"class="list-group-item list-group-item-action "><b>But</b></a>
+        <a href="rencontre"   style="background-color:#fec310;color:#56042c;font-size: 20px;"class="list-group-item list-group-item-action "><b>Rencontre</b></a>
+        <a href="classement"   style="background-color:#fec310;color:#56042c;font-size: 20px;" class="list-group-item list-group-item-action "><b>Classement</b></a>
+   
+       
+   
+   
+        <br>  <br>
+       <!--  <img src="/assets/q.png"  alt="image"  style="height: 20%;width: 80%;margin-left: 10%;" >  -->
+      </div>
+  
+    </div>
+  </div>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div  id="page-content-wrapper">       <!--navbar-light bg-light-->
+      <nav   class="navbar navbar-expand-lg   navbar-light   navbar-custom  border-bottom">
+      <img src="/assets/1.png"  alt="image"style=" width: 40px;height: 40px; margin-left:20px;"> 
+ 
+        <button style="background-color:#fec310; margin-left:20px;"  class="btn btn-primary" id="menu-toggle"> <i class="fas fa-bars"></i> </button>
+       
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div  class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul   class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li  *ngIf="showUserBoard" class="nav-item active">
+              <a   style="color: aliceblue;" class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li  *ngIf="showUserBoard"  class="nav-item">
+              <a  style="color: aliceblue;"  class="nav-link"  href="pool">Pool</a>
+            </li>
+            <li  *ngIf="showUserBoard" class="nav-item">
+              <a  style="color: aliceblue;"  class="nav-link"  href="arbitre">arbitre</a>
+            </li>
+            <li  *ngIf="showUserBoard" class="nav-item">
+              <a  style="color: aliceblue;"  class="nav-link"  href="equipe">equipe</a>
+            </li>
+          
+        <!--       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a  class="dropdown-item" href="#">Action</a>
+                <a   class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a   class="dropdown-item" href="#">Something else here</a>
+              </div> -->
+              <li  *ngIf="showUserBoard" class="nav-item">
+                <a  style="color: aliceblue;"  class="nav-link"  href="match">Match</a>
+              </li>
+              <li  *ngIf="showUserBoard" class="nav-item">
+                <a  style="color: aliceblue;"  class="nav-link"  href="but">but</a>
+              </li>
+              <li  *ngIf="showUserBoard" class="nav-item">
+                <a  style="color: aliceblue;"  class="nav-link"  href="rencontre">Rencontre</a>
+              </li>
+              <li  *ngIf="showUserBoard" class="nav-item">
+                <a  style="color: aliceblue;"  class="nav-link"  href="classement">Classement</a>
+              </li>
+          
+            <li class="nav-item">
+              <a  style="color: aliceblue;"  class="nav-link" href="#">   
+                &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; 
+                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; 
+                &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp; &nbsp;
+              
+              </a>
+            </li>
+           
+            <li > 
+              
+              <h2>
+          
+              <p  style="color: #fec310;"  class="nav-link" *ngIf="loggedIn()" ><img src="/assets/icon.webp"  alt="image"style=" width: 40px;height: 40px; margin-left:20px;">   {{userName}} </p> </h2>
+            </li>
+            <li class="nav-item">
+              <button type="button"   style="background-color: #fec310;" class="btn ">
+              <a href style="color: aliceblue;"  class="nav-link" (click)="onLogOut()" *ngIf="loggedIn()" routerLink="logout" >
+                Déconnecter</a> </button>
+            </li>
+           
+          </ul>
+        </div>
+      </nav>
+      <div class="container-fluid">
+
+        
+      <!--   <img src="/assets/1.png"  alt="image"style=" width: 30px;height: 30px; margin-left:20px;">  -->
+      <br>
+        <router-outlet></router-outlet>
+      
+    </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+   
+  </div>
+ 

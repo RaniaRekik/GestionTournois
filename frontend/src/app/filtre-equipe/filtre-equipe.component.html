@@ -1,0 +1,25 @@
+
+ <table class="table">
+    <thead>
+      <tr>
+     
+        <th scope="col">Nom Equipe</th>
+       <!--  <th scope="col">Lieu du match</th>
+        <th scope="col">Heure du match</th>
+        <th scope="col">Etat du match</th>
+        <th scope="col">Arbitre responsable</th> -->
+       
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let equipe of equipes">
+                     <td>{{equipe?.nom}}</td>
+         <!-- <td>{{match?.lieu}}</td> 
+         <td>{{match?.dt}}</td> 
+         <td> état{{match?.etat}}</td> 
+         <td>{{match?.arbitre?.nom}}</td> 
+              -->
+        </tr>
+                
+    </tbody>
+  </table>

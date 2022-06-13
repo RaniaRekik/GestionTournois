@@ -1,0 +1,64 @@
+
+
+
+    <div >
+      <div class="row">
+      <!-- /.login-logo -->
+      <div class="card" style="width: 51rem;">
+        <div class="card-body login-card-body">
+          
+          <h2 style="color:#56042c;font-size: 30px;"><b>Connectez-vous pour démarrer votre session</b></h2>
+          <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+         
+           <b><label style="color:#4DCFE1;font-size: 20px;">Nom </label></b>
+              <input type="text" class="form-control" placeholder="Taper votre Nom" id="userName"
+              formControlName="userName">
+              <div class="alert alert-danger" *ngIf="loginForm.get('userName').invalid
+                && loginForm.get('userName').touched">
+                <div *ngIf="loginForm.get('userName').errors.required">
+                  Le Nom d'utilisateur est obligatoire.
+                </div>
+                </div>
+              
+            
+            </div>
+            <br>
+            <div class="form-group">
+              <b><label style="color:#4DCFE1;font-size: 20px;">Mot de passe</label></b>
+              <input type="password" class="form-control" placeholder="Taper votre mot de passe" id="password"
+              formControlName="password">
+    
+              <div class="alert alert-danger" *ngIf="loginForm.get('password').invalid
+              && loginForm.get('password').touched">
+              <div *ngIf="loginForm.get('password').errors.required">
+                Le Mot de passe est obligatoire.
+              </div>
+            </div>
+             
+             
+              <br>
+            </div>
+       
+            <div >
+             
+              <!-- /.col -->
+          
+                <button type="submit" style="background-color: #1077c3;" class="btn btn-block" (click)="showToastr()">Se Connecter</button>
+            
+              <!-- /.col -->
+            </div>
+          </form>
+          <br>   <br>
+          <div>
+          <button [routerLink]="['/signup']"  (click)="signup()"  style="background-color:#fec310;"     class="btn " data-dismiss="modal">
+         Créer un nouveau compte</button>
+       </div>
+     
+         
+        </div>
+        <!-- /.login-card-body -->
+      </div>
+    </div>
+    
+    

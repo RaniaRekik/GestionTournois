@@ -1,0 +1,118 @@
+
+<div>
+
+    <button *ngIf="showAdminBoard" type="button" class="btn btn-primary" style="background-color:#1077c3;"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+       Ajouter une rencontre entre deux équipes
+      </button>
+<br> <br>
+
+   <div     class="container">
+        <table class="table">
+          <thead>
+            <tr>
+           
+              <th scope="col">Nom Match</th>
+            
+          <th scope="col">equipe1</th>
+          <th scope="col">but de l'equipe1  </th>
+          <th scope="col">equipe2</th>
+          <th scope="col">but de l' equipe2  </th>
+          <th scope="col" *ngIf="showAdminBoard" >mettre à jour le score</th>
+            </tr>
+          </thead>
+          <tbody>
+          
+            <tr *ngFor="let rencontre of rencontres">
+             
+            
+              <td>{{rencontre?.match?.nom}}</td>
+             
+               <td>{{rencontre?.equipe1?.nom}}</td> 
+               <td>{{rencontre?.but1}}</td> 
+               <td>{{rencontre?.equipe2?.nom}}</td>
+               <td >{{rencontre?.but2}}</td> 
+           
+               <td *ngIf="showAdminBoard"> <button   (click)="updateScore(rencontre.id);updateBut(rencontre.id);submitButton.disabled = true" #submitButton   type = "submit" style="background-color:#fec310   ;" 
+                 class="btn tooltips" data-placement="top" data-original-title="Edit">Match terminé </button></td>
+               
+            </tr>
+        
+           
+          </tbody>
+        </table>
+      </div> 
+<br> <br>
+<h2 style="color:#56042c;font-size: 20px;"><b>Les équipes</b></h2>
+      <div     class="container">
+        <table class="table">
+          <thead>
+            <tr>
+             <th scope="col">Nom de l'equipe</th>
+              <th scope="col">Score de l'équipe</th>
+              <th scope="col">jouer dans la pool</th>
+              <th *ngIf="showAdminBoard">Modifier</th>
+           <th *ngIf="showAdminBoard">Supprimer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let equipe of equipes">
+                <td>{{equipe?.nom}}</td>
+              <td>{{equipe?.score}}</td>
+                <td>{{equipe?.pool?.name}}</td> 
+                <td  *ngIf="showAdminBoard"  > <a (click)="onOpenModal(equipe, 'edit')" style="background-color:#fec310   ;"  class="btn tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a></td>
+                <td *ngIf="showAdminBoard">    <a (click)="onOpenModal(equipe, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a></td>
+                        </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal"  style="z-index: 999999999;" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+                      <form #addForm="ngForm" (ngSubmit)="onAddRencontre(addForm)">
+                          <div class="form-group">
+                    <label for="match">match</label>
+                     <select  [ngModel]="matchs"  name="match"    id="match"  class="form-select" aria-label="Default select example">
+                                     <option [ngValue]="match"   *ngFor="let match of matchs"  value="{{match?.id}}">{{match?.nom}}</option>
+                        
+                       </select>
+                  </div>
+                  <br>
+
+                <div class="form-group">
+                    <label for="equipe1">Equipe 1</label>
+                     <select  [ngModel]="equipes"  name="equipe1"    id="equipe1"  class="form-select" aria-label="Default select example">
+              
+                         <option [ngValue]="equipe1"   *ngFor="let equipe1 of equipes"  value="{{equipe1.id}}">{{equipe1?.nom}}</option>
+                                               </select>
+                  </div>
+
+       <br>
+              <div class="form-group">
+                <label for="equipe">equipe 2 </label>
+                 <select  [ngModel]="equipes"  name="equipe2"    id="equipe2"  class="form-select" aria-label="Default select example">
+                                       <option [ngValue]="equipe2"   *ngFor="let equipe2 of equipes"  value="{{equipe2?.id}}">{{equipe2?.nom}}</option>
+                    
+                   </select>
+              </div>
+
+            <div class="modal-footer">
+               <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+            </div>
+            </form>
+         </div>
+       
+      </div>
+    </div>
+  </div>
+<!--fin modal-->
+</div>

@@ -1,0 +1,136 @@
+<div id="main-container">
+
+</div>
+<div>
+
+    <button *ngIf="showAdminBoard" style="background-color:#1077c3;"   type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Ajouter une equipe
+      </button>
+<br><br>
+
+      <div     class="container">
+        <table class="table">
+          <thead>
+            <tr>
+             <th scope="col">Nom de l'equipe</th>
+              <th scope="col">Score de l'équipe</th>
+              <th scope="col">jouer dans la pool</th>
+              <th *ngIf="showAdminBoard">Modifier</th>
+           <th *ngIf="showAdminBoard">Supprimer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let equipe of equipes">
+                <td>{{equipe?.nom}}</td>
+              <td>{{equipe?.score}}</td>
+                <td>{{equipe?.pool?.name}}</td> 
+                <td  *ngIf="showAdminBoard"  > <a (click)="onOpenModal(equipe, 'edit')" style="background-color:#fec310   ;"  class="btn tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a></td>
+                <td *ngIf="showAdminBoard">    <a (click)="onOpenModal(equipe, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a></td>
+                        </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal"  style="z-index: 999999999;" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Ajouter une equipe</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+           
+            <form #addForm="ngForm" (ngSubmit)="onAddEquipe(addForm)">
+            <div class="form-group">
+                <label for="name">nom</label>
+                <input type="text" ngModel  name="nom" class="form-control" id="nom" placeholder="nom" required>
+             </div>
+             <br>
+              <div class="form-group">
+                <label for="pool">pool</label>
+                 <select   [ngModel]="pools"   name="pool"    id="pool"  class="form-select" aria-label="Default select example">
+                      <option [ngValue]="pool"   *ngFor="let pool of pools"  value="{{pool?.id}}">{{pool?.name}}</option>
+                    
+                   </select>
+              </div>
+            
+            <div class="modal-footer">
+               <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Ajouter</button>
+            </div>
+            </form>
+         </div>
+       
+      </div>
+    </div>
+  </div>
+<!--fin modal-->
+
+
+<!-- Edit Modal -->
+<div class="modal fade" id="updateEquipeModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h3 class="modal-title" id="updateEmployeeModalLabel">Modifier equipe {{editEquipe?.nom}}</h3>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form #editForm="ngForm">
+              <div class="form-group">
+                 <label for="nom">Nom de l'équipe</label>
+                 <input type="text" ngModel="{{editEquipe?.nom}}" name="nom" class="form-control" id="nom" aria-describedby="emailHelp" placeholder="Name">
+              </div>
+              <br>
+              <input type="hidden" ngModel="{{editEquipe?.id}}" name="id" class="form-control" id="id" >
+            
+              <div class="form-group">
+                <label for="pool">pool</label>
+                 <select    ngModel="{{editEquipe?.pool?.name}}"  name="pool"    id="pool"  class="form-select" aria-label="Default select example">
+                      <option [ngValue]="pool"   *ngFor="let pool of pools"  value="{{pool?.id}}">{{pool?.name}}</option>
+                    
+                   </select>
+              </div>
+                       
+              <div class="modal-footer">
+                 <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                 <button    style="background-color:#1077c3;"    (click)="onUpdateEquipe(editForm.value)" data-dismiss="modal" class="btn" >Modifier</button>
+              </div>
+           </form>
+        </div>
+     </div>
+  </div>
+</div>
+<!--fin editModal-->
+
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteEquipeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="deleteModelLabel">Delete Equipe</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <p>Are you sure you want to delete equipe {{deleteEquipe?.nom}}?</p>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+              <button   type="submit" (click)="onDeleteEquipe(deleteEquipe?.id)" style="color:#fff"  style="background-color:#56042c;"    class="btn " data-dismiss="modal">Supprimer</button>
+           </div>
+        </div>
+     </div> 
+  </div>
+</div>
+<!--fin delete-->
+
+
+</div>

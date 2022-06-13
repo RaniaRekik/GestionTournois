@@ -1,0 +1,89 @@
+
+<div>
+
+    <button *ngIf="showAdminBoard"   type="button" style="background-color:#1077c3;"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+       Ajouter un but pour une équipe
+      </button>
+
+
+  <div     class="container">
+        <table class="table">
+          <thead>
+            <tr>
+           
+              <th scope="col">Nom du Match</th>
+              <th scope="col">L'équipe</th>
+          <th scope="col">Heure de but</th>
+           
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let but of buts">
+             
+              <td>{{but?.match?.nom}}</td>
+               <td>{{but?.equipe?.nom}}</td> 
+             <td>{{but?.minute}}</td>  
+            
+            </tr>
+        
+           
+          </tbody>
+        </table>
+      </div> 
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal"  style="z-index: 999999999;" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">  Ajouter un but pour une équipe</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+           
+            <form #addForm="ngForm" (ngSubmit)="onAddBut(addForm)">
+          
+            <div class="form-group">
+                <label for="minute">minute</label>
+                <input type="time" step="1" class="form-control" ngModel  name="minute" id="minute" 
+               placeholder="minute" required>
+             </div>  
+            <br>
+            
+          <!--  [(ngModel)]="selectedOption" -->  
+             <div class="form-group">
+                <label for="match">match</label>
+                 <select  [ngModel]="matchs"  name="match"    id="match"  class="form-select" aria-label="Default select example">
+                     <option     selected>Open this select menu</option>
+                     <option [ngValue]="match"   *ngFor="let match of matchs"  value="{{match?.id}}">{{match?.nom}}</option>
+                    
+                   </select>
+              </div>
+              <br>
+
+              <div class="form-group">
+                <label for="equipe">equipe</label>
+                 <select  [ngModel]="equipes"  name="equipe"    id="equipe"  class="form-select" aria-label="Default select example">
+                
+                     <option [ngValue]="equipe"   *ngFor="let equipe of equipes"  value="{{equipe?.id}}">{{equipe?.nom}}</option>
+                    
+                   </select>
+              </div>
+              <br>
+            
+            <div class="modal-footer">
+              <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+           
+               <button [disabled]="addForm.invalid" type="submit"   style="background-color:#1077c3;"   class="btn " >Ajouter</button>
+            </div>
+            </form>
+         </div>
+       
+      </div>
+    </div>
+  </div>
+<!--fin modal-->
+</div>

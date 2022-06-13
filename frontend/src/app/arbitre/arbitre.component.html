@@ -1,0 +1,126 @@
+<div>
+<div id="main-container">
+
+</div>
+<!-- Button trigger modal -->
+<button    *ngIf="showAdminBoard" style="background-color:#1077c3;"  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Ajouter un arbitre
+  </button>
+  <br><br>
+  <div     class="container">
+  <table class="table">
+    <thead>
+      <tr>
+     
+        <th scope="col">Nom de l'arbitre</th>
+        <th scope="col">Numéro de son passport</th>
+     <th   *ngIf="showAdminBoard"  >Modifier</th>
+     <th   *ngIf="showAdminBoard"   >Supprimer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let arbitre of arbitres">
+       
+        <td>{{arbitre?.nom}}</td>
+        <td>{{arbitre?.pass}}</td>
+      <td    *ngIf="showAdminBoard"> <a (click)="onOpenModal(arbitre, 'edit')" style="background-color:#fec310   ;"  class="btn tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a></td>
+     <td    *ngIf="showAdminBoard">  <a (click)="onOpenModal(arbitre, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a></td>
+    </tr>
+     
+     
+    </tbody>
+  </table>
+</div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal"  style="z-index: 999999999;" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel"> Ajouter un arbitre</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+           
+          <form #addForm="ngForm" (ngSubmit)="onAddArbitre(addForm)">
+            <div class="form-group">
+               <label for="nom">Nom de l'arbitre</label>
+               <input ngModel type="text" name="nom"    class="form-control" placeholder="Name" id="nom" required>
+                        </div>
+                        <br>
+            <div class="form-group">
+               <label for="pass">Numéro de son passport</label>
+                <input ngModel type="text" name="pass" class="form-control"    id="pass"  placeholder="pass" required>  
+            </div>
+            
+            <div class="modal-footer">
+               <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+               <button [disabled]="addForm.invalid" type="submit"    style="background-color:#1077c3;"   class="btn" >Ajouter</button>
+            </div>
+            </form>
+         </div>
+       
+      </div>
+    </div>
+  </div>
+  <!--fin model-->
+
+<!-- Edit Modal -->
+<div class="modal fade" id="updateArbitreModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h3 class="modal-title" id="updateEmployeeModalLabel">Modifier arbitre {{editArbitre?.nom}}</h3>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form #editForm="ngForm">
+              <div class="form-group">
+                 <label for="nom">Nom de l'arbitre</label>
+                 <input type="text" ngModel="{{editArbitre?.nom}}" name="nom" class="form-control" id="nom" aria-describedby="emailHelp" placeholder="Name">
+              </div>
+              <br>
+              <input type="hidden" ngModel="{{editArbitre?.id}}" name="id" class="form-control" id="id" >
+            
+              <div class="form-group">
+                 <label for="pass">Numéro de son passport</label>
+                 <input type="text" ngModel="{{editArbitre?.pass}}" name="pass" class="form-control" id="pass" placeholder="pass">
+              </div>
+           
+              <div class="modal-footer">
+                 <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                 <button    style="background-color:#1077c3;"    (click)="onUpdateArbitre(editForm.value)" data-dismiss="modal" class="btn" >Modifier</button>
+              </div>
+           </form>
+        </div>
+     </div>
+  </div>
+</div>
+<!--fin editModal-->
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteArbitreModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+           <h3 class="modal-title" id="deleteModelLabel">Suppprimer arbitre</h3>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <p>Êtes-vous sûr de vouloir supprimer l'arbitre {{deleteArbitre?.nom}}?</p>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+              <button (click)="onDeleteArbitre(deleteArbitre?.id)"     style="background-color:#56042c;"    class="btn " data-dismiss="modal">Supprimer</button>
+           </div>
+        </div>
+     </div> 
+  </div>
+</div>
+<!--fin delete-->
+</div>
+
